@@ -26,7 +26,7 @@
     "tailwindcss"
   ],
   "engines": {
-    "node": ">=18.0.0",
+    "node": "20.x",
     "bun": ">=1.0.0"
   },
   "scripts": {
@@ -39,7 +39,7 @@
     "format:check": "biome format .",
     "check": "biome check --write .",
     "ci": "biome ci .",
-    "prepare": "husky || true"
+    "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.1.1",
