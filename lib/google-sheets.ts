@@ -30,16 +30,18 @@ export async function appendToSheet(data: {
       range: rangeWithQuotes,
       valueInputOption: 'RAW',
       requestBody: {
-        values: [[
-          new Date().toLocaleString('pt-BR', {
-            dateStyle: 'short',
-            timeStyle: 'short'
-          }),
-          data.name,
-          data.testimonial,
-          data.feedback || ''
-        ]]
-      }
+        values: [
+          [
+            new Date().toLocaleString('pt-BR', {
+              dateStyle: 'short',
+              timeStyle: 'short',
+            }),
+            data.name,
+            data.testimonial,
+            data.feedback || '',
+          ],
+        ],
+      },
     })
   } catch (error) {
     console.error('Erro ao salvar no Google Sheets:', error)

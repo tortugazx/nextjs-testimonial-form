@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { getErrorMessage, ValidationError } from '@/lib/errors'
 import { appendToSheet } from '@/lib/google-sheets'
 
 export async function POST(request: Request) {
@@ -7,25 +8,23 @@ export async function POST(request: Request) {
 
     // Validação básica
     if (!body.name || !body.testimonial) {
-      return NextResponse.json(
-        { success: false, error: 'Nome e depoimento são obrigatórios' },
-        { status: 400 }
-      )
+      throw new ValidationError('Nome e depoimento são obrigatórios', 'MISSING_FIELDS')
     }
 
     // Salvar no Google Sheets
     await appendToSheet({
       name: body.name,
       testimonial: body.testimonial,
-      feedback: body.feedback
+      feedback: body.feedback,
     })
 
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Erro na API:', error)
-    return NextResponse.json(
-      { success: false, error: 'Erro ao salvar depoimento. Tente novamente.' },
-      { status: 500 }
-    )
+
+    const statusCode = error instanceof ValidationError ? error.statusCode : 500
+    const errorMessage = getErrorMessage(error)
+
+    return NextResponse.json({ success: false, error: errorMessage }, { status: statusCode })
   }
 }

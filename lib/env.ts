@@ -13,7 +13,7 @@ const optionalEnvVars = {
   GOOGLE_SHEETS_SHEET_NAME: 'Sheet1', // valor padrão
 } as const
 
-type RequiredEnvVar = typeof requiredEnvVars[number]
+type RequiredEnvVar = (typeof requiredEnvVars)[number]
 type OptionalEnvVar = keyof typeof optionalEnvVars
 
 export function validateEnv() {
@@ -28,7 +28,7 @@ export function validateEnv() {
   if (missing.length > 0) {
     throw new Error(
       `Variáveis de ambiente faltando: ${missing.join(', ')}\n` +
-      'Configure estas variáveis no arquivo .env.local ou nas configurações da Vercel.'
+        'Configure estas variáveis no arquivo .env.local ou nas configurações da Vercel.'
     )
   }
 }

@@ -1,26 +1,27 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState, useEffect, useRef, useCallback, memo, useMemo } from "react"
-import Image from "next/image"
-import { TypeAnimation } from "react-type-animation"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { Check, ArrowLeft, Pencil } from "lucide-react"
+import { ArrowLeft, Check, Pencil } from 'lucide-react'
+import Image from 'next/image'
+import type React from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { TypeAnimation } from 'react-type-animation'
+import { Button } from '@/components/ui/button'
+import { getErrorMessage } from '@/lib/errors'
+import { cn } from '@/lib/utils'
 
-type Step = "name" | "testimonial" | "feedback" | "review" | "success"
+type Step = 'name' | 'testimonial' | 'feedback' | 'review' | 'success'
 
 interface Message {
   id: string
   text: string
-  type: "bot" | "user"
+  type: 'bot' | 'user'
 }
 
 export function TestimonialForm() {
-  const [step, setStep] = useState<Step>("name")
-  const [name, setName] = useState("")
-  const [testimonial, setTestimonial] = useState("")
-  const [feedback, setFeedback] = useState("")
+  const [step, setStep] = useState<Step>('name')
+  const [name, setName] = useState('')
+  const [testimonial, setTestimonial] = useState('')
+  const [feedback, setFeedback] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState<string | null>(null)
 
@@ -40,21 +41,27 @@ export function TestimonialForm() {
       clearTimeout(scrollTimeoutRef.current)
     }
     scrollTimeoutRef.current = setTimeout(() => {
-      chatEndRef.current?.scrollIntoView({ behavior: "smooth" })
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, 100)
   }, [])
 
   // Memoizar botMessages - performance boost em re-renders
-  const botMessages: Record<Step, string[]> = useMemo(() => ({
-    name: ["Que alegria ter você aqui! Seu depoimento é super importante para nós e será usado no site da banda para inspirar outras pessoas.", "Para começar, qual é o seu nome?"],
-    testimonial: ["Conta pra gente o que achou da nossa apresentação?"],
-    feedback: ["Tem algum feedback interno pra banda? Isso é opcional e não será publicado."],
-    review: [],
-    success: [],
-  }), [])
+  const botMessages: Record<Step, string[]> = useMemo(
+    () => ({
+      name: [
+        'Que alegria ter você aqui! Seu depoimento é super importante para nós e será usado no site da banda para inspirar outras pessoas.',
+        'Para começar, qual é o seu nome?',
+      ],
+      testimonial: ['Conta pra gente o que achou da nossa apresentação?'],
+      feedback: ['Tem algum feedback interno pra banda? Isso é opcional e não será publicado.'],
+      review: [],
+      success: [],
+    }),
+    []
+  )
 
   const queueMessages = useCallback((msgs: Message[]) => {
-    setPendingMessages((prev) => [...prev, ...msgs])
+    setPendingMessages(prev => [...prev, ...msgs])
   }, [])
 
   // Effect para processar fila de mensagens com TypeAnimation
@@ -63,10 +70,10 @@ export function TestimonialForm() {
 
     const nextMessage = pendingMessages[0]
 
-    if (nextMessage.type === "user") {
+    if (nextMessage.type === 'user') {
       // Mensagem do usuário aparece instantaneamente
-      setMessages((prev) => [...prev, nextMessage])
-      setPendingMessages((prev) => prev.slice(1))
+      setMessages(prev => [...prev, nextMessage])
+      setPendingMessages(prev => prev.slice(1))
     } else {
       // Mensagem do bot com TypeAnimation
       setIsTyping(true)
@@ -78,12 +85,12 @@ export function TestimonialForm() {
   // Callback quando TypeAnimation terminar - memoizado para performance
   const handleTypingComplete = useCallback(() => {
     if (!currentTypingId || pendingMessages.length === 0) return
-    
+
     const completedMessage = pendingMessages[0]
-    setMessages((prev) => [...prev, completedMessage])
+    setMessages(prev => [...prev, completedMessage])
     setCurrentTypingId(null)
     setIsTyping(false)
-    setPendingMessages((prev) => prev.slice(1))
+    setPendingMessages(prev => prev.slice(1))
   }, [currentTypingId, pendingMessages])
 
   useEffect(() => {
@@ -100,7 +107,7 @@ export function TestimonialForm() {
     const initialMessages = botMessages.name.map((text, i) => ({
       id: `init-${i}`,
       text,
-      type: "bot" as const,
+      type: 'bot' as const,
     }))
 
     queueMessages(initialMessages)
@@ -111,7 +118,7 @@ export function TestimonialForm() {
   useEffect(() => {
     scrollToBottom()
     // eslint-disable-next-line react-compiler/react-compiler
-  }, [messages.length, isTyping, scrollToBottom])
+  }, [scrollToBottom])
 
   // Cleanup do timeout no unmount
   useEffect(() => {
@@ -125,39 +132,39 @@ export function TestimonialForm() {
   const handleNameSubmit = () => {
     if (!name.trim()) return
 
-    const userMsg: Message = { id: `user-name`, text: name, type: "user" }
+    const userMsg: Message = { id: `user-name`, text: name, type: 'user' }
     const botMsgs = botMessages.testimonial.map((text, i) => ({
       id: `testimonial-${i}`,
       text,
-      type: "bot" as const,
+      type: 'bot' as const,
     }))
 
     queueMessages([userMsg, ...botMsgs])
-    setStep("testimonial")
+    setStep('testimonial')
     setInputReady(false)
   }
 
   const handleTestimonialSubmit = () => {
     if (!testimonial.trim()) return
 
-    const userMsg: Message = { id: `user-testimonial`, text: testimonial, type: "user" }
+    const userMsg: Message = { id: `user-testimonial`, text: testimonial, type: 'user' }
     const botMsgs = botMessages.feedback.map((text, i) => ({
       id: `feedback-${i}`,
       text,
-      type: "bot" as const,
+      type: 'bot' as const,
     }))
 
     queueMessages([userMsg, ...botMsgs])
-    setStep("feedback")
+    setStep('feedback')
     setInputReady(false)
   }
 
   const handleFeedbackSubmit = (skip = false) => {
     if (!skip && feedback.trim()) {
-      const userMsg: Message = { id: `user-feedback`, text: feedback, type: "user" }
+      const userMsg: Message = { id: `user-feedback`, text: feedback, type: 'user' }
       queueMessages([userMsg])
     }
-    setStep("review")
+    setStep('review')
   }
 
   const handleEdit = (targetStep: Step) => {
@@ -172,7 +179,7 @@ export function TestimonialForm() {
       const response = await fetch('/api/testimonials', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, testimonial, feedback })
+        body: JSON.stringify({ name, testimonial, feedback }),
       })
 
       const data = await response.json()
@@ -181,27 +188,29 @@ export function TestimonialForm() {
         throw new Error(data.error || 'Erro ao enviar')
       }
 
-      setStep("success")
+      setStep('success')
     } catch (error) {
-      setSubmissionError(
-        error instanceof Error
-          ? error.message
-          : 'Não foi possível enviar. Tente novamente.'
-      )
+      setSubmissionError(getErrorMessage(error))
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const maxChars = 250
-  const progress = ["name", "testimonial", "feedback"].indexOf(step)
+  const progress = ['name', 'testimonial', 'feedback'].indexOf(step)
 
-  if (step === "review") {
+  if (step === 'review') {
     return (
       <div className="w-full max-w-md mx-auto px-4">
         <div className="flex flex-col items-center mb-10">
           <div className="mb-6 opacity-0 animate-[fadeInScale_0.5s_ease-out_forwards]">
-            <Image src="/images/davince-logo.jpeg" alt="Davince" width={140} height={140} className="object-contain" />
+            <Image
+              src="/images/davince-logo.jpeg"
+              alt="Davince"
+              width={140}
+              height={140}
+              className="object-contain"
+            />
           </div>
           <h2 className="text-xl font-semibold text-foreground tracking-tight opacity-0 animate-[fadeInUp_0.5s_ease-out_0.1s_forwards]">
             Revise seu depoimento
@@ -212,13 +221,18 @@ export function TestimonialForm() {
         </div>
 
         <div className="space-y-3">
-          <ReviewCard label="Nome" value={name} onEdit={() => handleEdit("name")} delay={0.25} />
-          <ReviewCard label="Depoimento" value={testimonial} onEdit={() => handleEdit("testimonial")} delay={0.35} />
+          <ReviewCard label="Nome" value={name} onEdit={() => handleEdit('name')} delay={0.25} />
+          <ReviewCard
+            label="Depoimento"
+            value={testimonial}
+            onEdit={() => handleEdit('testimonial')}
+            delay={0.35}
+          />
           {feedback && (
             <ReviewCard
               label="Feedback interno"
               value={feedback}
-              onEdit={() => handleEdit("feedback")}
+              onEdit={() => handleEdit('feedback')}
               isPrivate
               delay={0.45}
             />
@@ -237,12 +251,12 @@ export function TestimonialForm() {
                 Enviando
               </span>
             ) : (
-              "Enviar depoimento"
+              'Enviar depoimento'
             )}
           </Button>
           <Button
             variant="ghost"
-            onClick={() => setStep("feedback")}
+            onClick={() => setStep('feedback')}
             className="w-full h-12 rounded-xl text-muted-foreground font-medium transition-all duration-200 active:scale-[0.98]"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -251,9 +265,7 @@ export function TestimonialForm() {
 
           {submissionError && (
             <div className="mt-4 p-4 bg-destructive/10 border border-destructive/50 rounded-2xl backdrop-blur-sm animate-[fadeInUp_0.3s_ease-out]">
-              <p className="text-sm text-destructive text-center mb-3">
-                {submissionError}
-              </p>
+              <p className="text-sm text-destructive text-center mb-3">{submissionError}</p>
               <Button
                 variant="outline"
                 onClick={handleSubmit}
@@ -269,7 +281,7 @@ export function TestimonialForm() {
     )
   }
 
-  if (step === "success") {
+  if (step === 'success') {
     return (
       <div className="w-full max-w-md mx-auto px-4">
         <div className="flex flex-col items-center justify-center py-16">
@@ -284,7 +296,7 @@ export function TestimonialForm() {
           </div>
 
           <h2 className="text-2xl font-semibold text-foreground tracking-tight mt-8 mb-2 opacity-0 animate-[fadeInUp_0.5s_ease-out_0.5s_forwards]">
-            Obrigado, {name.split(" ")[0]}!
+            Obrigado, {name.split(' ')[0]}!
           </h2>
           <p className="text-muted-foreground text-center text-base leading-relaxed max-w-[280px] opacity-0 animate-[fadeInUp_0.5s_ease-out_0.6s_forwards]">
             Seu depoimento foi enviado com sucesso. Agradecemos por fazer parte da nossa história.
@@ -308,17 +320,23 @@ export function TestimonialForm() {
     <div className="w-full max-w-md mx-auto px-4 flex flex-col h-full">
       {/* Header com logo */}
       <div className="flex justify-center py-8 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
-        <Image src="/images/davince-logo.jpeg" alt="Davince" width={168} height={168} className="object-contain" />
+        <Image
+          src="/images/davince-logo.jpeg"
+          alt="Davince"
+          width={168}
+          height={168}
+          className="object-contain"
+        />
       </div>
 
       {/* Progress indicator */}
       <div className="flex justify-center gap-2 mb-6 opacity-0 animate-[fadeIn_0.6s_ease-out_0.2s_forwards]">
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map(i => (
           <div
             key={i}
             className={cn(
-              "h-1 rounded-full transition-all duration-500 ease-out",
-              i <= progress ? "w-8 bg-primary shadow-lg shadow-primary/50" : "w-2 bg-border",
+              'h-1 rounded-full transition-all duration-500 ease-out',
+              i <= progress ? 'w-8 bg-primary shadow-lg shadow-primary/50' : 'w-2 bg-border'
             )}
           />
         ))}
@@ -326,8 +344,8 @@ export function TestimonialForm() {
 
       {/* Chat messages */}
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
-        {messages.map((msg) => (
-          <ChatBubble key={msg.id} type={msg.type === "bot" ? "received" : "sent"}>
+        {messages.map(msg => (
+          <ChatBubble key={msg.id} type={msg.type === 'bot' ? 'received' : 'sent'}>
             {msg.text}
           </ChatBubble>
         ))}
@@ -340,7 +358,7 @@ export function TestimonialForm() {
                 sequence={[
                   400, // Delay inicial
                   pendingMessages[0].text,
-                  () => handleTypingComplete()
+                  () => handleTypingComplete(),
                 ]}
                 wrapper="span"
                 speed={75}
@@ -359,11 +377,11 @@ export function TestimonialForm() {
       {/* Input area */}
       <div
         className={cn(
-          "border-t border-border/50 pt-4 pb-6 transition-all duration-300",
-          inputReady ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none",
+          'border-t border-border/50 pt-4 pb-6 transition-all duration-300',
+          inputReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
         )}
       >
-        {step === "name" && (
+        {step === 'name' && (
           <InputArea
             placeholder="Seu nome"
             value={name}
@@ -375,11 +393,11 @@ export function TestimonialForm() {
           />
         )}
 
-        {step === "testimonial" && (
+        {step === 'testimonial' && (
           <InputArea
             placeholder="Escreva seu depoimento..."
             value={testimonial}
-            onChange={(v) => v.length <= maxChars && setTestimonial(v)}
+            onChange={v => v.length <= maxChars && setTestimonial(v)}
             onSubmit={handleTestimonialSubmit}
             buttonLabel="Continuar"
             disabled={!testimonial.trim()}
@@ -390,7 +408,7 @@ export function TestimonialForm() {
           />
         )}
 
-        {step === "feedback" && (
+        {step === 'feedback' && (
           <InputArea
             placeholder="Sugestões, críticas ou elogios..."
             value={feedback}
@@ -429,9 +447,13 @@ const ReviewCard = memo(function ReviewCard({
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{label}</span>
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              {label}
+            </span>
             {isPrivate && (
-              <span className="text-[10px] bg-muted/80 text-muted-foreground px-2 py-0.5 rounded-full backdrop-blur-sm">privado</span>
+              <span className="text-[10px] bg-muted/80 text-muted-foreground px-2 py-0.5 rounded-full backdrop-blur-sm">
+                privado
+              </span>
             )}
           </div>
           <p className="text-foreground text-[15px] leading-relaxed">{value}</p>
@@ -454,16 +476,21 @@ const ChatBubble = memo(function ChatBubble({
   type,
 }: {
   children: React.ReactNode
-  type: "sent" | "received"
+  type: 'sent' | 'received'
 }) {
   return (
-    <div className={cn("flex animate-[fadeInUp_0.3s_ease-out]", type === "sent" ? "justify-end" : "justify-start")}>
+    <div
+      className={cn(
+        'flex animate-[fadeInUp_0.3s_ease-out]',
+        type === 'sent' ? 'justify-end' : 'justify-start'
+      )}
+    >
       <div
         className={cn(
-          "max-w-[85%] px-4 py-3 text-[15px] leading-relaxed backdrop-blur-sm border contain-layout-paint",
-          type === "sent"
-            ? "bg-primary text-primary-foreground rounded-[20px] rounded-br-md border-primary/20 shadow-lg shadow-primary/10"
-            : "bg-secondary/80 text-secondary-foreground rounded-[20px] rounded-bl-md border-border/50",
+          'max-w-[85%] px-4 py-3 text-[15px] leading-relaxed backdrop-blur-sm border contain-layout-paint',
+          type === 'sent'
+            ? 'bg-primary text-primary-foreground rounded-[20px] rounded-br-md border-primary/20 shadow-lg shadow-primary/10'
+            : 'bg-secondary/80 text-secondary-foreground rounded-[20px] rounded-bl-md border-border/50'
         )}
       >
         {children}
@@ -508,18 +535,21 @@ const InputArea = memo(function InputArea({
     }
   }, [ready])
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey && !disabled) {
-      e.preventDefault()
-      onSubmit()
-    }
-  }, [disabled, onSubmit])
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' && !e.shiftKey && !disabled) {
+        e.preventDefault()
+        onSubmit()
+      }
+    },
+    [disabled, onSubmit]
+  )
 
   const inputClasses = cn(
-    "w-full px-4 py-4 bg-secondary/70 backdrop-blur-sm rounded-2xl text-foreground text-base",
-    "placeholder:text-muted-foreground/50",
-    "border border-border/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-secondary/90 focus:border-primary/50",
-    "transition-all duration-300",
+    'w-full px-4 py-4 bg-secondary/70 backdrop-blur-sm rounded-2xl text-foreground text-base',
+    'placeholder:text-muted-foreground/50',
+    'border border-border/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-secondary/90 focus:border-primary/50',
+    'transition-all duration-300'
   )
 
   return (
@@ -530,10 +560,10 @@ const InputArea = memo(function InputArea({
             ref={inputRef as React.RefObject<HTMLTextAreaElement>}
             placeholder={placeholder}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={4}
-            className={cn(inputClasses, "resize-none", counter && "pb-9")}
+            className={cn(inputClasses, 'resize-none', counter && 'pb-9')}
           />
         ) : (
           <input
@@ -541,7 +571,7 @@ const InputArea = memo(function InputArea({
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
             className={inputClasses}
           />
@@ -549,8 +579,8 @@ const InputArea = memo(function InputArea({
         {counter && (
           <span
             className={cn(
-              "absolute bottom-3 right-4 text-xs font-medium transition-colors duration-200 backdrop-blur-sm px-2 py-0.5 rounded-full",
-              counterWarning ? "text-destructive bg-destructive/10" : "text-muted-foreground/60",
+              'absolute bottom-3 right-4 text-xs font-medium transition-colors duration-200 backdrop-blur-sm px-2 py-0.5 rounded-full',
+              counterWarning ? 'text-destructive bg-destructive/10' : 'text-muted-foreground/60'
             )}
           >
             {counter}
@@ -572,8 +602,8 @@ const InputArea = memo(function InputArea({
           onClick={onSubmit}
           disabled={disabled}
           className={cn(
-            "h-14 rounded-2xl font-medium text-base transition-all duration-300 active:scale-[0.98] shadow-lg shadow-primary/20",
-            showSkip ? "flex-1" : "w-full",
+            'h-14 rounded-2xl font-medium text-base transition-all duration-300 active:scale-[0.98] shadow-lg shadow-primary/20',
+            showSkip ? 'flex-1' : 'w-full'
           )}
         >
           {buttonLabel}

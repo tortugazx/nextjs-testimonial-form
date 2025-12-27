@@ -1,4 +1,4 @@
-import { TestimonialForm } from "@/components/testimonial-form"
+import { TestimonialForm } from '@/components/testimonial-form'
 
 export default function Home() {
   return (

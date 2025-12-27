@@ -5,80 +5,67 @@
   
   **Production-ready testimonial collection with Google Sheets integration**
   
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38bdf8?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-  [![Bun](https://img.shields.io/badge/Bun-1.0-f9f1e1?style=for-the-badge&logo=bun)](https://bun.sh/)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](./LICENSE)
+  [![CI](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml/badge.svg)](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml)
+  [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+  [![Biome](https://img.shields.io/badge/Biome-2.3-60a5fa?style=flat-square&logo=biome)](https://biomejs.dev/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
   
-  [Features](#features) • [Quick Start](#quick-start) • [Deployment](#deployment) • [Contributing](#contributing)
+  [Features](#features) • [Quick Start](#quick-start) • [CI/CD](#cicd-setup) • [Deployment](#deployment)
 </div>
 
 ---
 
 ## About
 
-A production-ready testimonial collection form built with Next.js 16, featuring a conversational chat interface with smooth typing animations. Data is automatically synced to Google Sheets for easy management and integration.
+Conversational testimonial form built with Next.js 16 App Router, featuring chat-style UI with typing animations. Data syncs automatically to Google Sheets.
 
-Originally created for Davince Band, this template is fully customizable for any project needing testimonial collection.
+Originally created for [Davince Band](https://davince.com.br), fully customizable for any testimonial collection use case.
+
+**Live Demo**: [Coming soon]
 
 ### Key Highlights
 
-- **Modern Interface** - Chat-style UI with realistic typing animations
-- **Performance Optimized** - Memoized components, debounced scrolling, optimized re-renders
-- **Production Ready** - Environment validation, comprehensive error handling, security headers
-- **Google Sheets Integration** - Automatic data sync with custom spreadsheets
-- **CI/CD Pipeline** - GitHub Actions workflow included
-- **Fully Responsive** - Works seamlessly across all device sizes
-- **Accessible** - WCAG compliant with proper ARIA labels and keyboard navigation
+- 🚀 **Modern Stack** - Next.js 16, React 19, TypeScript, Tailwind CSS 4, Biome
+- 💬 **Chat Interface** - Conversational flow with realistic typing animations
+- ⚡ **Performance** - Memoized components, debounced scrolling, optimized re-renders
+- 📊 **Google Sheets** - Automatic data sync, no database required
+- 🔒 **Secure** - Environment validation, CSP headers, server-side credentials
+- 🎨 **Themeable** - Dark mode, customizable design tokens
+- ♿ **Accessible** - WCAG compliant, keyboard navigation
 
 ## Features
 
-### User Experience
-- Interactive chat-based form flow with typing animations
-- Real-time character count for testimonials (250 char limit)
-- Optional internal feedback field (private, not published)
-- Review screen with inline editing before submission
-- Comprehensive loading states and error handling
-- Smooth animations and transitions
+**User Experience**
+- Multi-step chat flow with typing animations
+- Character count (250 limit) with live feedback
+- Optional internal feedback field (not published)
+- Review screen with inline editing
+- Comprehensive loading & error states
 
-### Technical
+**Technical**
 - Server-side Google Sheets API integration
-- Environment variable validation at build time
+- Build-time environment validation
+- Type-safe error handling with custom error classes
 - Optimized image formats (AVIF/WebP)
-- Security headers (CSP, X-Frame-Options, CORS)
-- TypeScript strict mode
-- Automatic code formatting and linting
-- Pre-commit hooks with Husky and lint-staged
+- Security headers (CSP, X-Frame-Options, HSTS)
+- Pre-commit hooks with Husky + lint-staged
 
 ## Quick Start
 
-### Prerequisites
-
-- [Bun](https://bun.sh/) >= 1.0.0 (or Node.js >= 18)
-- Google Cloud account with Sheets API enabled
-- Git
-
-### Installation
-
-Clone and install:
+**Prerequisites**: [Bun](https://bun.sh/) ≥1.0 or Node.js ≥18
 
 ```bash
-git clone https://github.com/rafactx/testimonial-form.git
-cd testimonial-form
+# Clone & install
+git clone https://github.com/rafactx/nextjs-testimonial-form.git
+cd nextjs-testimonial-form
 bun install
-```
 
-Configure environment:
-
-```bash
+# Configure environment
 cp .env.local.example .env.local
-# Edit .env.local with your credentials (see Google Sheets Setup below)
-```
+# Edit .env.local with your Google Sheets credentials
 
-Start development server:
-
-```bash
+# Start dev server
 bun dev
 ```
 
@@ -89,39 +76,33 @@ Open [http://localhost:3000](http://localhost:3000)
 <details>
 <summary><b>Complete configuration guide</b></summary>
 
-#### Step 1: Create Service Account
+#### 1. Create Service Account
 
-1. Visit [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing
-3. Navigate to **APIs & Services** > **Credentials**
-4. Click **Create Credentials** > **Service Account**
-5. Fill in details and click **Create**
-6. Skip optional permissions and click **Done**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create project → **APIs & Services** → **Credentials**
+3. **Create Credentials** → **Service Account**
+4. Complete form → **Create** → Skip permissions → **Done**
 
-#### Step 2: Generate JSON Key
+#### 2. Generate JSON Key
 
-1. Select the created service account
-2. Go to **Keys** tab
-3. Click **Add Key** > **Create new key**
-4. Select **JSON** format and download
-5. Store securely (never commit to version control)
+1. Select service account → **Keys** tab
+2. **Add Key** → **Create new key** → **JSON**
+3. Download and store securely (never commit to git)
 
-#### Step 3: Enable API
+#### 3. Enable API
 
-1. In Cloud Console, go to **APIs & Services** > **Library**
-2. Search "Google Sheets API"
-3. Click **Enable**
+1. **APIs & Services** → **Library**
+2. Search "Google Sheets API" → **Enable**
 
-#### Step 4: Configure Spreadsheet
+#### 4. Configure Spreadsheet
 
-1. Create a new Google Sheet
-2. Share with service account email (from JSON file)
-3. Grant **Editor** permissions
-4. Extract spreadsheet ID from URL: `docs.google.com/spreadsheets/d/{ID}/edit`
+1. Create new Google Sheet
+2. Share with service account email (from JSON) as **Editor**
+3. Copy spreadsheet ID from URL: `docs.google.com/spreadsheets/d/{ID}/edit`
 
-#### Step 5: Environment Variables
+#### 5. Environment Variables
 
-Open the downloaded JSON file and map values to `.env.local`:
+Map JSON values to `.env.local`:
 
 ```env
 GOOGLE_SHEETS_CLIENT_EMAIL=your-account@project.iam.gserviceaccount.com
@@ -130,173 +111,214 @@ GOOGLE_SHEETS_SPREADSHEET_ID=your-spreadsheet-id
 GOOGLE_SHEETS_SHEET_NAME=Sheet1
 ```
 
-**Important:** Preserve `\n` characters in `PRIVATE_KEY` - they represent line breaks.
+⚠️ **Important**: Keep `\n` in `PRIVATE_KEY` (they're line breaks, not literal text)
 
 </details>
+
+## CI/CD Setup
+
+### GitHub Actions
+
+The repository includes a CI workflow ([.github/workflows/ci.yml](.github/workflows/ci.yml)) that runs on push/PR:
+
+1. **Lint & Check** - Biome linting, formatting, and type checking
+2. **Build** - Next.js production build with mock env vars
+
+**No secrets needed for CI** - build uses mock values to validate env var existence.
+
+### Configuring Secrets (for deployment)
+
+For production deployments on Vercel/other platforms:
+
+1. **GitHub Environments** (recommended for security):
+   - Settings → Environments → **New environment** (e.g., "Production")
+   - Add secrets:
+     - `GOOGLE_SHEETS_CLIENT_EMAIL`
+     - `GOOGLE_SHEETS_PRIVATE_KEY`
+     - `GOOGLE_SHEETS_SPREADSHEET_ID`
+     - `GOOGLE_SHEETS_SHEET_NAME`
+   - Configure **Required reviewers** for approval gate
+   - Enable **Branch protection** on `main`
+
+2. **Vercel Integration**:
+   - Link GitHub repo to Vercel project
+   - Add environment variables in Vercel dashboard
+   - Auto-deploy on push to `main`
 
 ## Scripts
 
 ```bash
 # Development
-bun dev              # Start development server with hot reload
-bun build            # Build optimized production bundle
-bun start            # Start production server
+bun dev              # Start dev server with hot reload
+bun build            # Production build
+bun start            # Production server
 
 # Code Quality
-bun lint             # Run ESLint
-bun lint:fix         # Auto-fix ESLint errors
-bun type-check       # TypeScript compiler check
-bun format           # Format with Prettier
+bun lint             # Run Biome linter
+bun lint:fix         # Auto-fix Biome issues
+bun format           # Format code with Biome
 bun format:check     # Verify formatting
+bun check            # Lint + format + fix (pre-commit)
+bun ci               # CI mode (strict, no fixes)
+```
 ```
 
 ## Deployment
 
 ### Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rafactx/testimonial-form)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rafactx/nextjs-testimonial-form)
 
-#### Dashboard Method
+**Steps**:
+1. Import repository on [vercel.com](https://vercel.com)
+2. Add environment variables (see [Google Sheets Setup](#google-sheets-setup))
+3. Deploy
 
-1. Sign in to [vercel.com](https://vercel.com)
-2. Click **Add New Project**
-3. Import Git repository
-4. Add environment variables:
-   - `GOOGLE_SHEETS_CLIENT_EMAIL`
-   - `GOOGLE_SHEETS_PRIVATE_KEY` (include quotes and `\n`)
-   - `GOOGLE_SHEETS_SPREADSHEET_ID`
-   - `GOOGLE_SHEETS_SHEET_NAME`
-5. Deploy
-
-#### CLI Method
-
+**CLI**:
 ```bash
 bun add -g vercel
 vercel login
 vercel --prod
 ```
 
-### Alternative Platforms
+### Other Platforms
 
-Compatible with any Next.js-supporting platform:
-- **Netlify** - Use Next.js plugin
-- **AWS Amplify** - Connect Git repository
-- **Railway** - One-click deployment
-- **Render** - Auto-deploy from Git
+Works with any Next.js-supporting platform:
+- **Netlify** - Use Next.js Runtime plugin
+- **Railway** - Auto-deploy from Git
+- **Render** - Connect repository
+- **AWS Amplify** - Git-based deployment
 
-## Project Structure
+## Architecture
 
 ```
 testimonial-form/
 ├── app/                    # Next.js App Router
-│   ├── api/               # API routes
-│   │   └── testimonials/  # Submission endpoint
-│   ├── layout.tsx         # Root layout with providers
-│   └── page.tsx           # Main page component
-├── components/            # React components
-│   ├── ui/               # Base UI primitives
-│   └── testimonial-form.tsx # Main form component
-├── lib/                   # Utilities
-│   ├── env.ts            # Environment validation
-│   ├── google-sheets.ts  # Sheets integration
-│   └── utils.ts          # Helper functions
-├── public/               # Static assets
-├── styles/               # Global styles
-└── .github/              # CI/CD workflows
+│   ├── api/testimonials/  # Submission endpoint (POST)
+│   ├── layout.tsx         # Root layout + ThemeProvider
+│   └── page.tsx           # Main page
+├── components/
+│   ├── ui/               # Base components (shadcn/ui)
+│   └── testimonial-form.tsx # Main form (585 lines)
+├── lib/
+│   ├── env.ts            # Build-time validation
+│   ├── errors.ts         # Type-safe error classes
+│   ├── google-sheets.ts  # Sheets API client
+│   └── utils.ts          # Utilities (cn helper)
+└── .github/workflows/    # CI pipeline
 ```
 
-## Security
+## Troubleshooting
 
-- Environment variables validated at build time
-- Security headers configured (CSP, X-Frame-Options, HSTS)
-- Credentials never exposed to client-side
-- Input validation and sanitization on backend
-- No sensitive data in error messages
-- HTTPS enforced in production
+### Build Errors
+
+**`Variáveis de ambiente faltando`**
+- **Cause**: Missing required env vars
+- **Fix**: Verify `.env.local` has all 4 variables from [Google Sheets Setup](#google-sheets-setup)
+- **CI**: Use mock values (already configured in [ci.yml](.github/workflows/ci.yml))
+
+**`Error: Could not load the default credentials`**
+- **Cause**: Invalid service account credentials
+- **Fix**: Re-download JSON key, verify `PRIVATE_KEY` includes `\n` characters
+
+### Runtime Errors
+
+**`API Request failed with status 403`**
+- **Cause**: Service account lacks spreadsheet access
+- **Fix**: Share spreadsheet with service account email as Editor
+
+**`Error: Unable to parse range`**
+- **Cause**: `SHEET_NAME` doesn't match actual sheet name
+- **Fix**: Check sheet tab name in Google Sheets (default: "Sheet1")
+
+### Development Issues
+
+**Pre-commit hook not running**
+- **Fix**: `chmod +x .husky/pre-commit && git add .husky/pre-commit`
+
+**Biome errors on CSS files**
+- **Expected**: Biome skips CSS (Tailwind not supported), only lints TS/JS/JSON
+
+**Port 3000 already in use**
+- **Fix**: `lsof -ti:3000 | xargs kill -9` or change port: `bun dev -- -p 3001`
 
 ## Customization
 
-### Theming
+### Theme
 
-Modify theme variables in `@/app/globals.css`:
+Modify design tokens in [app/globals.css](app/globals.css):
 
 ```css
-@layer base {
-  :root {
-    --primary: 220 90% 56%;
-    --secondary: 220 14% 96%;
-    /* Add your colors */
-  }
+@theme inline {
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
+  /* Add custom colors */
 }
 ```
 
 ### Messages
 
-Edit conversation flow in `@/components/testimonial-form.tsx`:
+Edit conversation flow in [components/testimonial-form.tsx](components/testimonial-form.tsx):
 
 ```tsx
 const botMessages: Record<Step, string[]> = useMemo(() => ({
-  name: ["Custom greeting", "What's your name?"],
-  testimonial: ["Custom prompt"],
+  name: ["Custom greeting!", "What's your name?"],
+  testimonial: ["Tell us about your experience..."],
   // ...
 }), [])
 ```
 
-### Data Structure
+### Data Schema
 
-Testimonials are saved with this schema:
+Testimonials saved to Google Sheets:
 
 | Timestamp | Name | Testimonial | Internal Feedback |
 |-----------|------|-------------|-------------------|
-| 1/27/2025 10:30 AM | John Doe | Great service! | Consider adding X feature |
+| 2025-12-27 10:30 | John Doe | Amazing! | Feature request X |
 
 ## Performance
 
-Optimizations implemented:
+**Optimizations**:
+- Component memoization (`React.memo`)
+- Callback stabilization (`useCallback`)
+- Derived state memoization (`useMemo`)
+- Debounced scroll (100ms timeout)
+- Next.js Image (AVIF/WebP with blur placeholder)
+- Tree-shaking (optimized imports)
+- Gzip/Brotli compression
 
-- **Component Memoization** - `React.memo()` prevents unnecessary re-renders
-- **Callback Optimization** - `useCallback()` for stable references
-- **State Memoization** - `useMemo()` for derived state
-- **Debounced Scrolling** - Prevents scroll thrashing
-- **Tree Shaking** - Optimized package imports
-- **Image Optimization** - Next.js Image with AVIF/WebP
-- **Compression** - Gzip/Brotli for responses
+**Metrics** (estimated):
+- First Contentful Paint: < 1.5s
+- Time to Interactive: < 3.5s
+- Cumulative Layout Shift: < 0.1
 
 ## Contributing
 
-Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
-Quick start:
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/name`)
-3. Make changes with tests
-4. Run `bun lint` and `bun type-check`
-5. Commit with conventional format
-6. Push and open Pull Request
+**Quick start**:
+1. Fork repository
+2. Create feature branch: `git checkout -b feature/name`
+3. Make changes + add Biome checks pass
+4. Commit with [Conventional Commits](https://www.conventionalcommits.org/)
+5. Push and open PR
 
 ## License
 
-MIT License - see [LICENSE](./LICENSE) for details.
+MIT License - see [LICENSE](./LICENSE)
 
 ## Acknowledgments
 
-Built with:
 - [Next.js](https://nextjs.org/) - React framework
-- [shadcn/ui](https://ui.shadcn.com/) - Component primitives
+- [Biome](https://biomejs.dev/) - Fast linter & formatter
+- [shadcn/ui](https://ui.shadcn.com/) - Component system
 - [react-type-animation](https://react-type-animation.netlify.app/) - Typing effects
 - [Google Sheets API](https://developers.google.com/sheets/api) - Data storage
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/rafactx/testimonial-form/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/rafactx/testimonial-form/discussions)
-- **Email**: rafactx@icloud.com
 
 ---
 
 <div align="center">
+  <sub>Built with ❤️ by <a href="https://github.com/rafactx">Rafael Teixeira</a></sub>
   
 **[↑ Back to top](#nextjs-testimonial-form)**
-
 </div>

@@ -1,27 +1,27 @@
-import type React from "react"
-import type { Metadata, Viewport } from "next"
-import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider"
-import "./globals.css"
+import { Analytics } from '@vercel/analytics/next'
+import type { Metadata, Viewport } from 'next'
+import type React from 'react'
+import { ThemeProvider } from '@/components/theme-provider'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: "Davince | Depoimentos",
-  description: "Compartilhe sua experiência com a banda Davince",
-  generator: "v0.app",
+  title: 'Davince | Depoimentos',
+  description: 'Compartilhe sua experiência com a banda Davince',
+  generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: "/images/davince-logo.jpeg",
-        sizes: "any",
+        url: '/images/davince-logo.jpeg',
+        sizes: 'any',
       },
     ],
-    apple: "/images/davince-logo.jpeg",
-    shortcut: "/images/davince-logo.jpeg",
+    apple: '/images/davince-logo.jpeg',
+    shortcut: '/images/davince-logo.jpeg',
   },
 }
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
 }
