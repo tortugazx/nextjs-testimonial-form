@@ -1,16 +1,16 @@
 <div align="center">
   <img src="./public/images/davince-logo.jpeg" alt="Davince Band Logo" width="200"/>
-  
+
   # Next.js Testimonial Form
-  
+
   **Production-ready testimonial collection with Google Sheets integration**
-  
-  [![CI](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml/badge.svg)](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml)
+
+  [![CI](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rafactx/nextjs-testimonial-form/actions/workflows/ci.yml)
   [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
   [![Biome](https://img.shields.io/badge/Biome-2.3-60a5fa?style=flat-square&logo=biome)](https://biomejs.dev/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
-  
+
   [Features](#features) • [Quick Start](#quick-start) • [CI/CD](#cicd-setup) • [Deployment](#deployment)
 </div>
 
@@ -318,6 +318,6 @@ MIT License - see [LICENSE](./LICENSE)
 
 <div align="center">
   <sub>Built with ❤️ by <a href="https://github.com/rafactx">Rafael Teixeira</a></sub>
-  
+
 **[↑ Back to top](#nextjs-testimonial-form)**
 </div>
