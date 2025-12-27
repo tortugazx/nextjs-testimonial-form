@@ -74,5 +74,9 @@
     "*.{ts,tsx,js,jsx,json,jsonc}": [
       "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
     ]
+  },
+  "overrides": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3"
   }
 }
