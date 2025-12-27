@@ -32,6 +32,7 @@ Originally created for [Davince Band](https://davince.com.br), fully customizabl
 - 📊 **Google Sheets** - Automatic data sync, no database required
 - 🔒 **Secure** - Environment validation, CSP headers, server-side credentials
 - 🎨 **Themeable** - Dark mode, customizable design tokens
+- 📱 **Responsive** - Mobile-first design, optimized for all screen sizes
 - ♿ **Accessible** - WCAG compliant, keyboard navigation
 
 ## Features
@@ -41,6 +42,7 @@ Originally created for [Davince Band](https://davince.com.br), fully customizabl
 - Character count (250 limit) with live feedback
 - Optional internal feedback field (not published)
 - Review screen with inline editing
+- Responsive layout optimized for mobile and desktop
 - Comprehensive loading & error states
 
 **Technical**
