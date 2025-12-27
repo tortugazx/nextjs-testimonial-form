@@ -44,7 +44,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     if (asChild) {
       return (
-        // @ts-expect-error - Slot component has type incompatibility with React 19
         <Slot
           ref={ref}
           data-slot="button"
