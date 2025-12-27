@@ -53,7 +53,7 @@ Originally created for [Davince Band](https://davince.com.br), fully customizabl
 
 ## Quick Start
 
-**Prerequisites**: [Bun](https://bun.sh/) ≥1.0 or Node.js ≥18
+**Prerequisites**: [Bun](https://bun.sh/) ≥1.0 or Node.js ≥24
 
 ```bash
 # Clone & install
