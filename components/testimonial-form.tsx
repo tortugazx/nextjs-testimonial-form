@@ -336,14 +336,14 @@ export function TestimonialForm() {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto px-4 flex flex-col h-full">
+    <div className="w-full max-w-md mx-auto px-4 flex flex-col h-full overflow-y-auto overscroll-contain">
       {/* Header com logo */}
-      <div className="flex justify-center py-8 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
+      <div className="flex justify-center py-4 sm:py-6 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
         <Image
           src="/images/davince-logo.jpeg"
           alt="Davince"
-          width={168}
-          height={168}
+          width={120}
+          height={120}
           className="object-contain"
         />
       </div>

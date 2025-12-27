@@ -193,3 +193,24 @@
     outline-offset: 2px;
   }
 }
+
+/* Mobile-first: Dynamic Viewport Height support */
+@supports (height: 100dvh) {
+  .h-dvh {
+    height: 100dvh;
+  }
+}
+
+/* Fallback para navegadores sem suporte a dvh */
+@supports not (height: 100dvh) {
+  .h-dvh {
+    height: 100vh;
+  }
+}
+
+/* iOS safe-area support (notch e home indicator) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
