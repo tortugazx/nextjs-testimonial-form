@@ -44,8 +44,8 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/davince-form.git
-cd davince-form
+git clone https://github.com/your-username/nextjs-testimonial-form.git
+cd nextjs-testimonial-form
 
 # Install dependencies
 bun install

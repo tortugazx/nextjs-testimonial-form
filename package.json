@@ -1,14 +1,22 @@
 {
-  "name": "davince-testimonial-form",
+  "name": "nextjs-testimonial-form",
   "version": "1.0.0",
-  "description": "Modern testimonial collection form with Google Sheets integration for Davince Band",
+  "description": "Production-ready testimonial collection form with Google Sheets integration built with Next.js 16",
   "private": false,
-  "author": "rafactx",
+  "author": {
+    "name": "Rafael Teixeira",
+    "email": "rafactx@icloud.com",
+    "url": "https://github.com/rafactx"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rafactx/davince-form"
+    "url": "https://github.com/rafactx/nextjs-testimonial-form"
   },
+  "bugs": {
+    "url": "https://github.com/rafactx/nextjs-testimonial-form/issues"
+  },
+  "homepage": "https://github.com/rafactx/nextjs-testimonial-form#readme",
   "keywords": [
     "nextjs",
     "testimonials",
