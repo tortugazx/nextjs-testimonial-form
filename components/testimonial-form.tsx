@@ -120,6 +120,13 @@ export function TestimonialForm() {
     // eslint-disable-next-line react-compiler/react-compiler
   }, [scrollToBottom])
 
+  // Scroll automático quando o campo de feedback aparecer (UX mobile)
+  useEffect(() => {
+    if (step === 'feedback' && inputReady) {
+      scrollToBottom()
+    }
+  }, [step, inputReady, scrollToBottom])
+
   // Cleanup do timeout no unmount
   useEffect(() => {
     return () => {
