@@ -161,7 +161,6 @@ bun format:check     # Verify formatting
 bun check            # Lint + format + fix (pre-commit)
 bun ci               # CI mode (strict, no fixes)
 ```
-```
 
 ## Deployment
 
